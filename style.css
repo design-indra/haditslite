@@ -9,6 +9,7 @@
   --text: #e6f6ee;
   --subtext: #baf5cc;
   --accent: #80d6a7;
+  --shadow: rgba(0, 255, 150, 0.08);
 }
 
 body.light {
@@ -18,6 +19,7 @@ body.light {
   --text: #1c2b24;
   --subtext: #4f6f61;
   --accent: #2f8f6b;
+  --shadow: rgba(0,0,0,0.05);
 }
 
 /* =========================
@@ -26,28 +28,33 @@ body.light {
 
 * {
   box-sizing: border-box;
-  font-family: system-ui, sans-serif;
 }
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  transition: 0.3s;
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+
+a {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.hidden {
+  display: none !important;
 }
 
 /* =========================
-   MOBILE APP FRAME
+   APP CONTAINER (Mobile Frame)
 ========================= */
 
-.app-container {
-  max-width: 480px;
-  margin: 0 auto;
-  min-height: 100vh;
-  background: var(--bg);
-  border-left: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-  box-shadow: 0 0 25px rgba(0, 255, 150, 0.05);
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 15px;
 }
 
 /* =========================
@@ -55,39 +62,53 @@ body {
 ========================= */
 
 .header {
-  padding: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: var(--bg);
+  padding: 15px;
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .header h1 {
-  margin: 0;
   font-size: 18px;
+  margin: 0;
+  font-weight: 600;
 }
 
-.nav-actions {
+.nav-right {
   display: flex;
   gap: 8px;
+  align-items: center;
 }
 
-#search {
+#searchInput {
   padding: 8px 10px;
   border-radius: 10px;
   border: 1px solid var(--border);
   background: var(--card);
   color: var(--text);
-  width: 150px;
+  width: 160px;
+  font-size: 13px;
+}
+
+#searchInput:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 
 button {
   background: var(--card);
   border: 1px solid var(--border);
   color: var(--accent);
-  padding: 8px 12px;
+  padding: 8px 10px;
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
+  font-size: 13px;
 }
 
 button:hover {
@@ -95,68 +116,45 @@ button:hover {
 }
 
 /* =========================
-   GRID KITAB
+   HADITS GRID
 ========================= */
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 12px;
-  padding: 16px;
-}
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 16px;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 14px;
-}
-
-.card:hover {
-  box-shadow: 0 0 16px var(--accent);
+.hadits-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 /* =========================
-   HADITS VIEW
+   HADITH CARD
 ========================= */
-
-#hadith-view {
-  padding: 16px;
-}
 
 .hadith-card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 15px;
+  padding: 18px;
   transition: 0.3s;
+  box-shadow: 0 0 10px var(--shadow);
 }
 
 .hadith-card:hover {
-  box-shadow: 0 0 14px var(--accent);
+  box-shadow: 0 0 18px var(--accent);
 }
-
-/* =========================
-   ARABIC TEXT
-========================= */
 
 .arab {
   font-family: 'Amiri', serif;
   direction: rtl;
   text-align: right;
   font-size: 22px;
-  line-height: 1.9;
+  line-height: 2;
+  margin-bottom: 12px;
 }
 
 .translation {
-  margin-top: 10px;
   font-size: 14px;
   color: var(--subtext);
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 /* =========================
@@ -164,9 +162,9 @@ button:hover {
 ========================= */
 
 .action-buttons {
+  margin-top: 12px;
   display: flex;
   gap: 8px;
-  margin-top: 12px;
 }
 
 .action-buttons button {
@@ -176,24 +174,32 @@ button:hover {
 }
 
 /* =========================
-   BOOKMARK PAGE
+   LOADING TEXT
 ========================= */
 
-#bookmark-page {
-  padding: 16px;
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: var(--subtext);
+  font-size: 13px;
 }
 
 /* =========================
-   ADSENSE BOX
+   ADSENSE CONTAINER
 ========================= */
+
+.ads-container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
 
 .ads-box {
   background: var(--card);
   border: 1px solid var(--border);
-  margin: 15px;
-  padding: 12px;
+  padding: 14px;
+  border-radius: 14px;
   text-align: center;
-  border-radius: 12px;
   font-size: 13px;
   color: var(--subtext);
 }
@@ -203,33 +209,56 @@ button:hover {
 ========================= */
 
 .footer {
-  padding: 20px;
-  text-align: center;
+  margin-top: 40px;
+  padding: 25px 15px;
   border-top: 1px solid var(--border);
+  text-align: center;
+  background: var(--bg);
 }
 
-.footer h3 {
-  margin-top: 0;
-  font-size: 16px;
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--accent);
+  transition: 0.2s;
+}
+
+.footer-links a:hover {
+  opacity: 0.7;
 }
 
 .footer p {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--subtext);
+  margin: 0;
 }
 
 /* =========================
-   UTILITIES
+   BOOKMARK PAGE
 ========================= */
 
-.hidden {
-  display: none;
+#bookmark-page {
+  padding: 15px;
 }
 
-hr {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 20px;
+/* =========================
+   SCROLLBAR (Premium Feel)
+========================= */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
 }
 
 /* =========================
@@ -237,11 +266,23 @@ hr {
 ========================= */
 
 @media (max-width: 480px) {
-  #search {
-    width: 120px;
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #searchInput {
+    width: 100%;
   }
 
   .arab {
     font-size: 20px;
   }
+
+  .container {
+    padding: 12px;
+  }
+
 }
