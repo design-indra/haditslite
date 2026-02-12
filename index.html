@@ -70,6 +70,15 @@
 
 </div>
 
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("Service Worker Registered"));
+  });
+}
+</script>
+
 <script src="script.js"></script>
 </body>
 </html>
