@@ -197,3 +197,14 @@ button:hover {
   .nav-menu { display: none; }
   .arab { font-size: 20px; }
 }
+
+.ads-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 10px;
+  margin: 10px 0;
+  text-align: center;
+  border-radius: 12px;
+  color: var(--subtext);
+  font-size: 13px;
+}
