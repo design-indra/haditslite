@@ -9,18 +9,9 @@
 <meta name="keywords" content="hadits, hadis, sunnah, islam, hadits nabi, bukhari, muslim, arab indonesia">
 <meta name="author" content="Muhamad Holis">
 
-<meta property="og:title" content="Hadits Lite - Sunnah Rasulullah ﷺ">
-<meta property="og:description" content="Platform modern membaca hadits Arab & Indonesia.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://design-indra.github.io/hadits-lite/">
-
-<meta name="theme-color" content="#0f172a">
-
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="style.css">
@@ -50,8 +41,6 @@
   <div class="nav-top">
     <!-- Quotes Highlight -->
     <div id="header-quote" class="quote-box">“Menuntut ilmu adalah kewajiban setiap muslim.”</div>
-
-<hr>
     <div class="ads-box">Iklan Top Navigasi</div>
   </div>
 
@@ -62,10 +51,10 @@
 </header>
 
 <main class="container">
-  <div id="book-list" class="grid">
-    <!-- Daftar kitab akan dimuat di sini -->
-  </div>
+  <!-- GRID KITAB -->
+  <div id="book-list" class="grid"></div>
 
+  <!-- HADITS VIEW -->
   <div id="hadith-view" class="hidden">
     <h2 id="book-title"></h2>
     <div id="hadith-container" class="grid"></div>
@@ -74,7 +63,7 @@
   <div id="loading" class="loading">Memuat hadits...</div>
 </main>
 
-<!-- Footer + Iklan -->
+<!-- Footer -->
 <footer class="footer">
   <div class="footer-links">
     <a href="about.html">About</a>
