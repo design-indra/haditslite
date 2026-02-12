@@ -1,4 +1,3 @@
-/* ROOT COLORS */
 :root {
   --bg: #0b1511;
   --card: #10241b;
@@ -25,7 +24,6 @@ body {
   transition: 0.3s;
 }
 
-/* CONTAINER UTAMA */
 .container {
   max-width: 480px;
   margin: 0 auto;
@@ -33,7 +31,6 @@ body {
   min-height: 100vh;
 }
 
-/* HEADER */
 .header {
   display: flex;
   flex-wrap: wrap;
@@ -91,7 +88,6 @@ button:hover {
   box-shadow: 0 0 10px var(--accent);
 }
 
-/* GRID KITAB & HADITS */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -105,6 +101,7 @@ button:hover {
   border-radius: 12px;
   padding: 10px;
   font-size: 12px;
+  line-height: 1.4;
   transition: 0.3s;
 }
 
@@ -116,18 +113,22 @@ button:hover {
   font-family: 'Amiri', serif;
   direction: rtl;
   text-align: right;
-  font-size: 18px;
-  line-height: 1.8;
+  font-size: 16px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .translation {
   font-size: 12px;
   color: var(--subtext);
-  margin-top: 6px;
-  line-height: 1.4;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* ACTION BUTTONS */
 .action-buttons {
   display: flex;
   gap: 5px;
@@ -140,7 +141,6 @@ button:hover {
   padding: 4px 6px;
 }
 
-/* LOADING */
 .loading {
   text-align: center;
   font-size: 12px;
@@ -148,7 +148,6 @@ button:hover {
   color: var(--subtext);
 }
 
-/* FOOTER */
 .footer {
   text-align: center;
   padding: 15px 10px;
@@ -177,7 +176,6 @@ button:hover {
   box-shadow: 0 0 8px var(--accent);
 }
 
-/* ADS BOX */
 .ads-box {
   background: var(--card);
   border: 1px solid var(--border);
@@ -188,18 +186,11 @@ button:hover {
   margin: 6px 0;
 }
 
-/* RESPONSIVE */
+.hidden { display: none; }
+
 @media (max-width: 480px) {
-  #searchInput {
-    width: 100px;
-  }
-  .arab {
-    font-size: 16px;
-  }
-  .translation {
-    font-size: 11px;
-  }
-  .quote-box {
-    font-size: 11px;
-  }
+  #searchInput { width: 100px; }
+  .arab { font-size: 16px; }
+  .translation { font-size: 11px; }
+  .quote-box { font-size: 11px; }
 }
