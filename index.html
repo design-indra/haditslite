@@ -4,95 +4,72 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hadits Lite - Sunnah Rasulullah ﷺ</title>
-<meta name="description" content="Hadits Lite - Baca Hadits Nabi ﷺ Arab dan Indonesia. Modern, ringan, mudah digunakan.">
-<meta name="keywords" content="hadits, hadis, sunnah, islam, hadits nabi, bukhari, muslim, arab indonesia">
-<meta name="author" content="Muhamad Holis">
+<title>Hadits Lite - Arab & Indonesia</title>
+<meta name="description" content="Baca hadits lengkap Arab dan Indonesia.">
+<meta name="keywords" content="hadits, sunnah, arab, indonesia">
+<meta name="author" content="Hadits Lite">
 
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon-192.png">
-
-<link href="https://fonts.googleapis.com/css2?family=Amiri&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0b1511">
 
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Hadits Lite",
-  "url": "https://design-indra.github.io/hadits-lite/",
-  "description": "Website membaca hadits Nabi Muhammad ﷺ Arab dan Indonesia.",
-  "inLanguage": "id",
-  "author": {
-    "@type": "Person",
-    "name": "Muhamad Holis"
-  }
-}
-</script>
+<!-- ADSENSE READY -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
 </head>
 
 <body>
+
+<div class="app-container">
+
 <header class="header">
-  <div class="nav-left">
-    <h1>📖 Hadits Lite</h1>
-  </div>
+  <h1>📚 Hadits Lite</h1>
 
-  <div class="nav-top">
-    <!-- Quotes Highlight -->
-    <div id="header-quote" class="quote-box">“Menuntut ilmu adalah kewajiban setiap muslim.”</div>
-    <div class="ads-box">Iklan Top Navigasi</div>
-  </div>
-
-  <div class="nav-right">
-    <input type="text" id="searchInput" placeholder="Cari hadits...">
+  <div class="nav-actions">
+    <input type="text" id="search" placeholder="Global Search Hadits..." />
+    <button id="bookmarkPageBtn">🔖</button>
     <button id="themeToggle">🌙</button>
   </div>
 </header>
 
-<main class="container">
+<hr>
 
-  <div id="book-list" class="grid">
-    <!-- Daftar kitab Hadits muncul di sini -->
-  </div>
+<!-- ADSENSE TOP -->
+<div class="ads-box">
+  <!-- Ganti dengan kode Adsense -->
+  <p>Adsense Top Banner</p>
+</div>
 
-  <div id="hadith-view" class="hidden">
-    <h2 id="book-title"></h2>
-    <div id="hadith-container"></div>
-    <button id="backBtn">← Kembali</button>
-  </div>
+<section id="book-list" class="grid"></section>
 
-  <div id="bookmark-page" class="hidden">
-    <h2>Bookmarks</h2>
-    <div id="bookmark-container"></div>
-    <button id="closeBookmark">← Kembali</button>
-  </div>
+<section id="hadith-view" class="hidden">
+  <button id="backBtn">← Kembali</button>
+  <h2 id="book-title"></h2>
+  <div id="hadith-container"></div>
+</section>
 
-  <!-- Adsense placeholder -->
-  <div class="ads-container">
-    <div class="ads-box">Ads Top Banner</div>
-  </div>
+<section id="bookmark-page" class="hidden">
+  <button id="closeBookmark">← Kembali</button>
+  <h2>Bookmark Hadits</h2>
+  <div id="bookmark-container"></div>
+</section>
 
-</main>
+<!-- ADSENSE BOTTOM -->
+<div class="ads-box">
+  <p>Adsense Bottom Banner</p>
+</div>
 
-<!-- Footer -->
+<hr>
+
 <footer class="footer">
-  <div class="footer-links">
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="bookmark.html">Bookmarks</a>
-  </div>
-
-  <div class="ads-box">Iklan Footer</div>
-  <p>© 2026 Hadits Lite - Dikembangkan oleh Muhamad Holis</p>
+  <h3>Pelajari Sunnah Rasulullah ﷺ</h3>
+  <p>Arab & Indonesia | Ringan & Modern</p>
 </footer>
 
-<script src="script.js" defer></script>
-<script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js');
-}
-</script>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
