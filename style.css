@@ -1,13 +1,8 @@
-:root {
-  --bg: #f4f6f5;
-  --card: #ffffff;
-  --border: #e2e8e5;
-  --text: #1f2d2a;
-  --subtext: #6b7c75;
-  --accent: #2f8f6b;
-}
+/* =========================
+   ROOT THEME COLORS
+========================= */
 
-body.dark {
+:root {
   --bg: #0b1511;
   --card: #10241b;
   --border: #2f6b4f;
@@ -15,6 +10,19 @@ body.dark {
   --subtext: #baf5cc;
   --accent: #80d6a7;
 }
+
+body.light {
+  --bg: #ffffff;
+  --card: #f6f9f7;
+  --border: #cdded6;
+  --text: #1c2b24;
+  --subtext: #4f6f61;
+  --accent: #2f8f6b;
+}
+
+/* =========================
+   GLOBAL
+========================= */
 
 * {
   box-sizing: border-box;
@@ -28,51 +36,48 @@ body {
   transition: 0.3s;
 }
 
+/* =========================
+   MOBILE APP FRAME
+========================= */
+
+.app-container {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  box-shadow: 0 0 25px rgba(0, 255, 150, 0.05);
+}
+
+/* =========================
+   HEADER
+========================= */
+
 .header {
   padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border);
 }
 
-.nav-left h1 {
+.header h1 {
   margin: 0;
   font-size: 18px;
 }
 
-.nav-menu {
-  display: flex;
-  gap: 18px;
-}
-
-.nav-menu a {
-  text-decoration: none;
-  color: var(--text);
-  font-size: 14px;
-  padding: 6px 10px;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-.nav-menu a:hover {
-  background: var(--card);
-  box-shadow: 0 0 8px var(--accent);
-  color: var(--accent);
-}
-
-.nav-right {
+.nav-actions {
   display: flex;
   gap: 8px;
-  align-items: center;
 }
 
-#searchInput {
+#search {
   padding: 8px 10px;
   border-radius: 10px;
   border: 1px solid var(--border);
   background: var(--card);
   color: var(--text);
+  width: 150px;
 }
 
 button {
@@ -88,6 +93,10 @@ button {
 button:hover {
   box-shadow: 0 0 10px var(--accent);
 }
+
+/* =========================
+   GRID KITAB
+========================= */
 
 .grid {
   display: grid;
@@ -110,6 +119,14 @@ button:hover {
   box-shadow: 0 0 16px var(--accent);
 }
 
+/* =========================
+   HADITS VIEW
+========================= */
+
+#hadith-view {
+  padding: 16px;
+}
+
 .hadith-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -122,6 +139,10 @@ button:hover {
 .hadith-card:hover {
   box-shadow: 0 0 14px var(--accent);
 }
+
+/* =========================
+   ARABIC TEXT
+========================= */
 
 .arab {
   font-family: 'Amiri', serif;
@@ -138,6 +159,10 @@ button:hover {
   line-height: 1.6;
 }
 
+/* =========================
+   ACTION BUTTONS
+========================= */
+
 .action-buttons {
   display: flex;
   gap: 8px;
@@ -150,9 +175,17 @@ button:hover {
   padding: 6px;
 }
 
-#hadith-view, #bookmark-page {
+/* =========================
+   BOOKMARK PAGE
+========================= */
+
+#bookmark-page {
   padding: 16px;
 }
+
+/* =========================
+   ADSENSE BOX
+========================= */
 
 .ads-box {
   background: var(--card);
@@ -165,35 +198,50 @@ button:hover {
   color: var(--subtext);
 }
 
+/* =========================
+   FOOTER
+========================= */
+
 .footer {
   padding: 20px;
   text-align: center;
   border-top: 1px solid var(--border);
 }
 
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 8px;
+.footer h3 {
+  margin-top: 0;
+  font-size: 16px;
 }
 
-.footer-links a {
-  color: var(--accent);
-  text-decoration: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-  transition: 0.3s;
+.footer p {
+  font-size: 13px;
+  color: var(--subtext);
 }
 
-.footer-links a:hover {
-  background: var(--card);
-  box-shadow: 0 0 10px var(--accent);
+/* =========================
+   UTILITIES
+========================= */
+
+.hidden {
+  display: none;
 }
 
-.hidden { display: none; }
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 480px) {
-  .nav-menu { display: none; }
-  .arab { font-size: 20px; }
+  #search {
+    width: 120px;
+  }
+
+  .arab {
+    font-size: 20px;
+  }
 }
