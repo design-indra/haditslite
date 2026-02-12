@@ -218,6 +218,54 @@ button:hover {
   color: var(--subtext);
 }
 
+.footer {
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  display: block;
+  background: var(--card);
+  color: var(--accent);
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 12px;
+  transition: 0.3s;
+  text-align: center;
+  font-weight: 500;
+}
+
+.footer-links a:hover {
+  background: var(--accent);
+  color: var(--card);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.footer p {
+  font-size: 13px;
+  color: var(--subtext);
+  margin-top: 8px;
+}
+
+/* Iklan Footer */
+.ads-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  color: var(--subtext);
+}
+
 /* =========================
    UTILITIES
 ========================= */
