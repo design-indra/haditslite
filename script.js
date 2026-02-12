@@ -77,13 +77,6 @@ async function fetchHadith(){
   loading=false;
 }
 
-const backBtn = document.getElementById("backBtn");
-
-backBtn.onclick = () => {
-  hadithView.classList.add("hidden");   // sembunyikan tampilan hadits
-  bookList.classList.remove("hidden");  // tampilkan daftar kitab
-};
-
 /* INFINITE SCROLL */
 window.addEventListener("scroll",()=>{
   if(window.innerHeight+window.scrollY>=document.body.offsetHeight-100){
