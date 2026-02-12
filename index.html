@@ -51,16 +51,28 @@
 </header>
 
 <main class="container">
-  <!-- GRID KITAB -->
-  <div id="book-list" class="grid"></div>
 
-  <!-- HADITS VIEW -->
-  <div id="hadith-view" class="hidden">
-    <h2 id="book-title"></h2>
-    <div id="hadith-container" class="grid"></div>
+  <div id="book-list" class="grid">
+    <!-- Daftar kitab Hadits muncul di sini -->
   </div>
 
-  <div id="loading" class="loading">Memuat hadits...</div>
+  <div id="hadith-view" class="hidden">
+    <h2 id="book-title"></h2>
+    <div id="hadith-container"></div>
+    <button id="backBtn">← Kembali</button>
+  </div>
+
+  <div id="bookmark-page" class="hidden">
+    <h2>Bookmarks</h2>
+    <div id="bookmark-container"></div>
+    <button id="closeBookmark">← Kembali</button>
+  </div>
+
+  <!-- Adsense placeholder -->
+  <div class="ads-container">
+    <div class="ads-box">Ads Top Banner</div>
+  </div>
+
 </main>
 
 <!-- Footer -->
