@@ -15,10 +15,9 @@ const closeBookmark = document.getElementById("closeBookmark");
 let currentBook = "";
 let start = 1;
 let loading = false;
-let totalAvailable = 0;
 
 /* =========================
-   THEME
+   THEME TOGGLE
 ========================= */
 
 if(localStorage.getItem("theme")==="light"){
@@ -28,13 +27,13 @@ if(localStorage.getItem("theme")==="light"){
 
 themeToggle.onclick=()=>{
   document.body.classList.toggle("light");
-  const light=document.body.classList.contains("light");
-  themeToggle.textContent=light?"☀️":"🌙";
-  localStorage.setItem("theme",light?"light":"dark");
+  const isLight=document.body.classList.contains("light");
+  themeToggle.textContent=isLight?"☀️":"🌙";
+  localStorage.setItem("theme",isLight?"light":"dark");
 };
 
 /* =========================
-   FETCH BOOKS
+   FETCH BOOK LIST
 ========================= */
 
 fetch("https://api.hadith.gading.dev/books")
@@ -43,33 +42,32 @@ fetch("https://api.hadith.gading.dev/books")
   data.data.forEach(book=>{
     const div=document.createElement("div");
     div.className="card";
-    div.innerHTML=`<strong>${book.name}</strong><br>Total: ${book.available}`;
-    div.onclick=()=>loadHadith(book.id,book.name,book.available);
+    div.innerHTML=`
+      <strong>${book.name}</strong>
+      <br>Total: ${book.available}
+    `;
+    div.onclick=()=>loadHadith(book.id,book.name);
     bookList.appendChild(div);
   });
-})
-.catch(()=>alert("Gagal memuat daftar kitab"));
+});
 
 /* =========================
    LOAD HADITH
 ========================= */
 
-function loadHadith(id,name,total){
+async function loadHadith(id,name){
   currentBook=id;
-  totalAvailable = total;
   bookTitle.textContent=name;
   bookList.classList.add("hidden");
-  hadithView.classList.remove("hidden");
   bookmarkPage.classList.add("hidden");
+  hadithView.classList.remove("hidden");
   hadithContainer.innerHTML="";
   start=1;
   fetchHadith();
 }
 
 async function fetchHadith(){
-  if(loading) return;
-  if(start > totalAvailable) return;
-
+  if(loading || !currentBook) return;
   loading=true;
 
   try{
@@ -79,41 +77,33 @@ async function fetchHadith(){
     data.data.hadiths.forEach(h=>{
       const div=document.createElement("div");
       div.className="hadith-card";
-
       div.innerHTML=`
         <div class="arab">${h.arab}</div>
         <div class="translation">${h.id}</div>
+
         <div class="action-buttons">
-          <button class="copy-btn">📋 Copy</button>
-          <button class="share-btn">📤 Share</button>
-          <button class="save-btn">🔖 Save</button>
+          <button onclick="copyText(\`${h.arab}\`)">📋 Copy</button>
+          <button onclick="shareHadith(\`${h.id}\`)">📤 Share</button>
+          <button onclick="saveBookmark('${h.number}',\`${h.id}\`)">🔖 Save</button>
         </div>
       `;
-
-      /* BUTTON EVENTS */
-      div.querySelector(".copy-btn").onclick=()=>copyText(h.arab);
-      div.querySelector(".share-btn").onclick=()=>shareHadith(h.id);
-      div.querySelector(".save-btn").onclick=()=>saveBookmark(h.number,h.id);
-
       hadithContainer.appendChild(div);
     });
 
     start+=20;
-  }catch{
-    console.log("Gagal memuat hadits");
+  } catch(err){
+    console.log("Error:",err);
   }
 
   loading=false;
 }
 
 /* =========================
-   INFINITE SCROLL (IMPROVED)
+   INFINITE SCROLL
 ========================= */
 
 window.addEventListener("scroll",()=>{
-  if(loading) return;
-
-  if((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 200){
+  if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 200){
     fetchHadith();
   }
 });
@@ -122,57 +112,52 @@ window.addEventListener("scroll",()=>{
    GLOBAL SEARCH
 ========================= */
 
-let searchTimeout;
+searchInput.addEventListener("input", async(e)=>{
+  const keyword=e.target.value.trim();
 
-searchInput.oninput=(e)=>{
-  clearTimeout(searchTimeout);
+  if(keyword.length<3) return;
 
-  searchTimeout=setTimeout(async()=>{
-    const keyword=e.target.value.trim();
-    if(keyword.length<3) return;
+  hadithContainer.innerHTML="";
+  hadithView.classList.remove("hidden");
+  bookList.classList.add("hidden");
+  bookmarkPage.classList.add("hidden");
 
-    try{
-      const res=await fetch(`https://api.hadith.gading.dev/search?q=${keyword}`);
-      const data=await res.json();
+  try{
+    const res=await fetch(`https://api.hadith.gading.dev/search?q=${keyword}`);
+    const data=await res.json();
 
-      hadithContainer.innerHTML="";
-      hadithView.classList.remove("hidden");
-      bookList.classList.add("hidden");
-      bookmarkPage.classList.add("hidden");
+    data.data.forEach(h=>{
+      const div=document.createElement("div");
+      div.className="hadith-card";
+      div.innerHTML=`
+        <div class="arab">${h.arab}</div>
+        <div class="translation">${h.id}</div>
+      `;
+      hadithContainer.appendChild(div);
+    });
 
-      data.data.forEach(h=>{
-        const div=document.createElement("div");
-        div.className="hadith-card";
-        div.innerHTML=`
-          <div class="arab">${h.arab}</div>
-          <div class="translation">${h.id}</div>
-        `;
-        hadithContainer.appendChild(div);
-      });
-
-    }catch{
-      console.log("Search error");
-    }
-
-  },500);
-};
+  } catch(err){
+    console.log("Search error:",err);
+  }
+});
 
 /* =========================
-   BOOKMARK (ANTI DUPLIKAT)
+   BOOKMARK SYSTEM
 ========================= */
 
-function saveBookmark(num,text){
+window.saveBookmark=(num,text)=>{
   let bookmarks=JSON.parse(localStorage.getItem("bookmarks"))||[];
 
-  if(bookmarks.find(b=>b.number===num)){
+  const exists=bookmarks.some(b=>b.number===num);
+  if(exists){
     alert("Sudah ada di bookmark");
     return;
   }
 
   bookmarks.push({number:num,text:text});
   localStorage.setItem("bookmarks",JSON.stringify(bookmarks));
-  alert("Disimpan!");
-}
+  alert("Disimpan ke bookmark!");
+};
 
 bookmarkBtn.onclick=()=>{
   bookmarkPage.classList.remove("hidden");
@@ -191,7 +176,7 @@ function loadBookmarks(){
   let bookmarks=JSON.parse(localStorage.getItem("bookmarks"))||[];
 
   if(bookmarks.length===0){
-    bookmarkContainer.innerHTML="<p>Tidak ada bookmark.</p>";
+    bookmarkContainer.innerHTML="<p>Belum ada bookmark.</p>";
     return;
   }
 
@@ -206,26 +191,36 @@ function loadBookmarks(){
 }
 
 /* =========================
-   COPY
+   COPY FUNCTION
 ========================= */
 
-function copyText(text){
-  navigator.clipboard.writeText(text)
-  .then(()=>alert("Disalin!"))
-  .catch(()=>alert("Gagal menyalin"));
-}
+window.copyText=(text)=>{
+  navigator.clipboard.writeText(text);
+  alert("Hadits disalin!");
+};
 
 /* =========================
-   SHARE
+   SHARE FUNCTION
 ========================= */
 
-function shareHadith(text){
+window.shareHadith=(text)=>{
   if(navigator.share){
     navigator.share({text:text});
   } else {
     alert("Browser tidak mendukung fitur share");
   }
-}
+};
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+backBtn.onclick=()=>{
+  hadithView.classList.add("hidden");
+  bookmarkPage.classList.add("hidden");
+  bookList.classList.remove("hidden");
+  window.scrollTo(0,0);
+};
 
 /* =========================
    SERVICE WORKER
