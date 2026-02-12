@@ -4,8 +4,13 @@ const bookList = document.getElementById("book-list");
 const hadithView = document.getElementById("hadith-view");
 const hadithContainer = document.getElementById("hadith-container");
 const bookTitle = document.getElementById("book-title");
+const backBtn = document.getElementById("backBtn");
 const searchInput = document.getElementById("searchInput");
 const themeToggle = document.getElementById("themeToggle");
+const bookmarkBtn = document.getElementById("bookmarkPageBtn");
+const bookmarkPage = document.getElementById("bookmark-page");
+const bookmarkContainer = document.getElementById("bookmark-container");
+const closeBookmark = document.getElementById("closeBookmark");
 
 let currentBook = "";
 let start = 1;
