@@ -12,6 +12,11 @@ const bookmarkPage = document.getElementById("bookmark-page");
 const bookmarkContainer = document.getElementById("bookmark-container");
 const closeBookmark = document.getElementById("closeBookmark");
 
+backBtn.onclick = () => {
+  hadithView.classList.add("hidden");   // sembunyikan tampilan hadits
+  bookList.classList.remove("hidden");  // tampilkan daftar kitab
+};
+
 let currentBook = "";
 let start = 1;
 let loading = false;
@@ -50,11 +55,6 @@ async function loadHadith(id,name){
   start=1;
   fetchHadith();
 }
-
-backBtn.onclick = () => {
-  hadithView.classList.add("hidden");   // sembunyikan tampilan hadits
-  bookList.classList.remove("hidden");  // tampilkan daftar kitab
-};
 
 async function fetchHadith(){
   if(loading) return;
