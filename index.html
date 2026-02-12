@@ -9,6 +9,8 @@
 <meta name="description" content="Hadits Lite - Baca Hadits Nabi ﷺ Arab dan Indonesia. Modern, ringan, dan mudah digunakan.">
 <meta name="keywords" content="hadits, hadis, sunnah, islam, hadits nabi, bukhari, muslim, arab indonesia">
 <meta name="author" content="Muhamad Holis">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://design-indra.github.io/hadits-lite/">
 
 <meta property="og:title" content="Hadits Lite - Sunnah Rasulullah ﷺ">
 <meta property="og:description" content="Platform modern membaca hadits Arab & Indonesia.">
@@ -27,61 +29,74 @@
 
 <link rel="stylesheet" href="style.css">
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Hadits Lite",
-  "url": "https://design-indra.github.io/hadits-lite/",
-  "description": "Website membaca hadits Nabi Muhammad ﷺ Arab dan Indonesia.",
-  "inLanguage": "id",
-  "author": {
-    "@type": "Person",
-    "name": "Muhamad Holis"
-  }
-}
-</script>
-
 </head>
 
 <body>
 
-<header class="header">
-  <div class="nav-left">
-    <h1>📖 Hadits Lite</h1>
-  </div>
+<div class="app-container">
 
-  <div class="nav-right">
-    <input type="text" id="searchInput" placeholder="Cari hadits...">
+<!-- HEADER -->
+<header class="header">
+  <h1>📖 Hadits Lite</h1>
+
+  <div class="nav-actions">
+    <input type="text" id="search" placeholder="Cari hadits...">
+    <button id="bookmarkPageBtn">🔖</button>
     <button id="themeToggle">🌙</button>
   </div>
 </header>
 
-<main class="container">
+<!-- =========================
+     BOOK LIST
+========================= -->
+<div id="book-list" class="grid"></div>
 
-  <div id="haditsContainer" class="hadits-grid">
-    <!-- Hadits akan dimuat di sini -->
+<!-- =========================
+     HADITH VIEW
+========================= -->
+<div id="hadith-view" class="hidden">
+
+  <div style="padding:16px;">
+    <button id="backBtn">⬅ Kembali</button>
+    <h2 id="book-title"></h2>
   </div>
 
-  <div id="loading" class="loading">Memuat hadits...</div>
+  <div id="hadith-container"></div>
 
-</main>
-
-<!-- Adsense Placement -->
-<div class="ads-container">
-  <!-- GANTI DENGAN SCRIPT ADSENSE -->
-  <div class="ads-box">Space Iklan</div>
 </div>
 
+<!-- =========================
+     BOOKMARK PAGE
+========================= -->
+<div id="bookmark-page" class="hidden">
+  <div style="padding:16px;">
+    <h2>🔖 Bookmarks</h2>
+    <button id="closeBookmark">Tutup</button>
+  </div>
+
+  <div id="bookmark-container"></div>
+</div>
+
+<!-- =========================
+     ADSENSE AREA
+========================= -->
+<div class="ads-box">
+  Space Iklan (Adsense Ready)
+</div>
+
+<!-- =========================
+     FOOTER
+========================= -->
 <footer class="footer">
   <div class="footer-links">
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
     <a href="privacy.html">Privacy Policy</a>
-    <a href="bookmark.html">Bookmarks</a>
   </div>
   <p>© 2026 Hadits Lite - Muhamad Holis</p>
 </footer>
+
+</div> <!-- end app-container -->
 
 <script src="script.js" defer></script>
 
