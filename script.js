@@ -51,6 +51,11 @@ async function loadHadith(id,name){
   fetchHadith();
 }
 
+backBtn.onclick = () => {
+  hadithView.classList.add("hidden");   // sembunyikan tampilan hadits
+  bookList.classList.remove("hidden");  // tampilkan daftar kitab
+};
+
 async function fetchHadith(){
   if(loading) return;
   loading=true;
