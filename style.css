@@ -1,0 +1,247 @@
+/* =========================
+   ROOT THEME COLORS
+========================= */
+
+:root {
+  --bg: #0b1511;
+  --card: #10241b;
+  --border: #2f6b4f;
+  --text: #e6f6ee;
+  --subtext: #baf5cc;
+  --accent: #80d6a7;
+}
+
+body.light {
+  --bg: #ffffff;
+  --card: #f6f9f7;
+  --border: #cdded6;
+  --text: #1c2b24;
+  --subtext: #4f6f61;
+  --accent: #2f8f6b;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  transition: 0.3s;
+}
+
+/* =========================
+   MOBILE APP FRAME
+========================= */
+
+.app-container {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  box-shadow: 0 0 25px rgba(0, 255, 150, 0.05);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 8px;
+}
+
+#search {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  width: 150px;
+}
+
+button {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* =========================
+   GRID KITAB
+========================= */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  padding: 16px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 14px;
+}
+
+.card:hover {
+  box-shadow: 0 0 16px var(--accent);
+}
+
+/* =========================
+   HADITS VIEW
+========================= */
+
+#hadith-view {
+  padding: 16px;
+}
+
+.hadith-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+.hadith-card:hover {
+  box-shadow: 0 0 14px var(--accent);
+}
+
+/* =========================
+   ARABIC TEXT
+========================= */
+
+.arab {
+  font-family: 'Amiri', serif;
+  direction: rtl;
+  text-align: right;
+  font-size: 22px;
+  line-height: 1.9;
+}
+
+.translation {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--subtext);
+  line-height: 1.6;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.action-buttons button {
+  flex: 1;
+  font-size: 12px;
+  padding: 6px;
+}
+
+/* =========================
+   BOOKMARK PAGE
+========================= */
+
+#bookmark-page {
+  padding: 16px;
+}
+
+/* =========================
+   ADSENSE BOX
+========================= */
+
+.ads-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  margin: 15px;
+  padding: 12px;
+  text-align: center;
+  border-radius: 12px;
+  font-size: 13px;
+  color: var(--subtext);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.footer h3 {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.footer p {
+  font-size: 13px;
+  color: var(--subtext);
+}
+
+/* =========================
+   UTILITIES
+========================= */
+
+.hidden {
+  display: none;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 480px) {
+  #search {
+    width: 120px;
+  }
+
+  .arab {
+    font-size: 20px;
+  }
+}
