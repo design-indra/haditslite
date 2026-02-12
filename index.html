@@ -3,27 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Hadits Lite - Sunnah Rasulullah ﷺ</title>
-
 <meta name="description" content="Hadits Lite - Baca Hadits Nabi ﷺ Arab dan Indonesia. Modern, ringan, dan mudah digunakan.">
-<meta name="keywords" content="hadits, hadis, sunnah, islam, hadits nabi, bukhari, muslim">
+<meta name="keywords" content="hadits, hadis, sunnah, islam, hadits nabi, bukhari, muslim, arab indonesia">
 <meta name="author" content="Muhamad Holis">
-<meta name="theme-color" content="#0f172a">
-
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Hadits Lite",
+  "url": "https://design-indra.github.io/hadits-lite/",
+  "description": "Website membaca hadits Nabi Muhammad ﷺ Arab dan Indonesia.",
+  "inLanguage": "id",
+  "author": {
+    "@type": "Person",
+    "name": "Muhamad Holis"
+  }
+}
+</script>
 </head>
 
 <body>
 
+<!-- HEADER DENGAN NAVIGASI -->
 <header class="header">
 
-  <div class="nav-right">
+  <div class="nav-left">
     <h1>📚 Hadits Lite</h1>
   </div>
 
@@ -34,51 +46,57 @@
     <a href="privacy.html">Privacy</a>
     <a href="bookmark.html">Bookmark</a>
   </nav>
-<hr>
 
-  <div class="nav-center">
-    <input type="text" id="search" placeholder="Search hadits...">
+  <div class="nav-right">
+    <input type="text" id="searchInput" placeholder="Cari hadits...">
     <button id="themeToggle">🌙</button>
   </div>
 
 </header>
 
-<main>
+<!-- MAIN CONTENT -->
+<main class="container">
 
-<!-- LIST KITAB -->
-<div id="book-list" class="grid"></div>
+  <div id="book-list" class="grid">
+    <!-- Daftar kitab Hadits muncul di sini -->
+  </div>
 
-<!-- HADITS VIEW -->
-<div id="hadith-view" class="hidden">
-  <button id="backBtn">⬅ Kembali</button>
-  <h2 id="book-title"></h2>
-  <div id="hadith-container"></div>
-</div>
+  <div id="hadith-view" class="hidden">
+    <h2 id="book-title"></h2>
+    <div id="hadith-container"></div>
+    <button id="backBtn">← Kembali</button>
+  </div>
 
-<!-- BOOKMARK PAGE -->
-<div id="bookmark-page" class="hidden">
-  <button id="closeBookmark">⬅ Kembali</button>
-  <h2>📌 Bookmark Hadits</h2>
-  <div id="bookmark-container"></div>
-</div>
+  <div id="bookmark-page" class="hidden">
+    <h2>Bookmarks</h2>
+    <div id="bookmark-container"></div>
+    <button id="closeBookmark">← Kembali</button>
+  </div>
+
+  <!-- Adsense placeholder -->
+  <div class="ads-container">
+    <div class="ads-box">Ads Top Banner</div>
+  </div>
 
 </main>
 
-<!-- ADSENSE READY -->
-<div class="ads-box">Space Iklan</div>
-
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-links">
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
     <a href="privacy.html">Privacy Policy</a>
+    <a href="bookmark.html">Bookmarks</a>
   </div>
   <p>© 2026 Hadits Lite - Muhamad Holis</p>
 </footer>
 
-</div>
-
-<script src="script.js"></script>
+<script src="script.js" defer></script>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
 
 </body>
 </html>
