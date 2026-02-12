@@ -4,34 +4,49 @@ const bookList = document.getElementById("book-list");
 const hadithView = document.getElementById("hadith-view");
 const hadithContainer = document.getElementById("hadith-container");
 const bookTitle = document.getElementById("book-title");
-const backBtn = document.getElementById("backBtn");
 const searchInput = document.getElementById("searchInput");
 const themeToggle = document.getElementById("themeToggle");
-const bookmarkBtn = document.getElementById("bookmarkPageBtn");
-const bookmarkPage = document.getElementById("bookmark-page");
-const bookmarkContainer = document.getElementById("bookmark-container");
-const closeBookmark = document.getElementById("closeBookmark");
+const headerQuote = document.getElementById("header-quote");
 
 let currentBook = "";
 let start = 1;
 let loading = false;
 
-/* THEME */
-if(localStorage.getItem("theme")==="dark"){
-  document.body.classList.add("dark");
+/* =================
+   Quotes Header
+================= */
+const quotes = [
+  "Menuntut ilmu adalah kewajiban setiap muslim.",
+  "Hadits adalah cahaya hati dan pedoman hidup.",
+  "Merenungi sunnah membawa ketenangan jiwa.",
+  "Menyebarkan ilmu hadits adalah amal jariyah."
+];
+
+function setRandomQuote(){
+  const random = quotes[Math.floor(Math.random()*quotes.length)];
+  headerQuote.textContent=random;
+}
+setRandomQuote();
+setInterval(setRandomQuote,15000);
+
+/* =================
+   Theme
+================= */
+if(localStorage.getItem("theme")==="light"){
+  document.body.classList.add("light");
   themeToggle.textContent="☀️";
-}else{
-  themeToggle.textContent="🌙";
 }
 
 themeToggle.onclick=()=>{
-  document.body.classList.toggle("dark");
-  const isDark=document.body.classList.contains("dark");
-  themeToggle.textContent=isDark?"☀️":"🌙";
-  localStorage.setItem("theme",isDark?"dark":"light");
+  document.body.classList.toggle("light");
+  const light=document.body.classList.contains("light");
+  themeToggle.textContent=light?"☀️":"🌙";
+  localStorage.setItem("theme",light?"light":"dark");
 };
 
-/* FETCH BOOKS */
+/* =================
+   Fetch Books
+================= */
 fetch("https://api.hadith.gading.dev/books")
 .then(res=>res.json())
 .then(data=>{
@@ -80,14 +95,18 @@ async function fetchHadith(){
   loading=false;
 }
 
-/* INFINITE SCROLL */
+/* =================
+   Infinite Scroll
+================= */
 window.addEventListener("scroll",()=>{
   if(window.innerHeight+window.scrollY>=document.body.offsetHeight-100){
     fetchHadith();
   }
 });
 
-/* GLOBAL SEARCH */
+/* =================
+   Global Search
+================= */
 searchInput.oninput=async(e)=>{
   const keyword=e.target.value;
   if(keyword.length<3) return;
@@ -107,13 +126,9 @@ searchInput.oninput=async(e)=>{
   });
 };
 
-/* BACK BUTTON */
-backBtn.onclick=()=>{
-  hadithView.classList.add("hidden");
-  bookList.classList.remove("hidden");
-};
-
-/* BOOKMARK */
+/* =================
+   Bookmark
+================= */
 window.saveBookmark=(num,text)=>{
   let bookmarks=JSON.parse(localStorage.getItem("bookmarks"))||[];
   bookmarks.push({number:num,text:text});
@@ -121,36 +136,14 @@ window.saveBookmark=(num,text)=>{
   alert("Disimpan!");
 };
 
-bookmarkBtn?.addEventListener("click",()=>{
-  bookmarkPage.classList.remove("hidden");
-  bookList.classList.add("hidden");
-  hadithView.classList.add("hidden");
-  loadBookmarks();
-});
-
-closeBookmark?.addEventListener("click",()=>{
-  bookmarkPage.classList.add("hidden");
-  bookList.classList.remove("hidden");
-});
-
-function loadBookmarks(){
-  bookmarkContainer.innerHTML="";
-  let bookmarks=JSON.parse(localStorage.getItem("bookmarks"))||[];
-  bookmarks.forEach(b=>{
-    const div=document.createElement("div");
-    div.className="hadith-card";
-    div.innerHTML=`<div class="translation">${b.text}</div>`;
-    bookmarkContainer.appendChild(div);
-  });
-}
-
-/* COPY */
+/* =================
+   Copy & Share
+================= */
 window.copyText=(text)=>{
   navigator.clipboard.writeText(text);
   alert("Disalin!");
 };
 
-/* SHARE */
 window.shareHadith=(text)=>{
   if(navigator.share){
     navigator.share({text:text});
@@ -159,7 +152,9 @@ window.shareHadith=(text)=>{
   }
 };
 
-/* SERVICE WORKER */
+/* =================
+   Service Worker
+================= */
 if("serviceWorker" in navigator){
   navigator.serviceWorker.register("sw.js");
 }
