@@ -1,86 +1,284 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HadisDigital - Premium Emerald Gold</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #46A29F; 
+            --primary-dark: #1B4D3E; 
+            --secondary: #D4AF37; 
+            --bg: #F4F7F6; 
+            --card: #FFFFFF;          
+            --text: #1B4D3E; 
+            --radius: 24px;
+            --gradient-emerald: linear-gradient(135deg, #46A29F, #1B4D3E);
+            --shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
 
-<title>Hadits Lite - Arab & Indonesia</title>
-<meta name="description" content="Baca hadits lengkap Arab dan Indonesia.">
-<meta name="keywords" content="hadits, sunnah, arab, indonesia">
-<meta name="author" content="Hadits Lite">
+        .dark-theme {
+            --bg: #0A1613; --card: #152A25; --primary: #58C4C0; 
+            --primary-dark: #81E6A4; --secondary: #F9E076; --text: #E0F2EF;
+        }
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0b1511">
+        body { 
+            margin: 0; font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); 
+            transition: 0.3s; padding-bottom: 100px; overflow-x: hidden;
+        }
 
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+        /* --- SPLASH SCREEN FULL BACKGROUND --- */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://i.ibb.co/JwwDgKbD/images-12.jpg') no-repeat center center;
+            background-size: cover; 
+            display: flex; justify-content: center; align-items: center;
+            z-index: 10000; transition: 1s ease-in-out;
+        }
 
-<!-- ADSENSE READY -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        #splash-screen::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4); z-index: 1;
+        }
 
+        .splash-content { position: relative; z-index: 2; text-align: center; width: 80%; }
+        
+        .splash-title { 
+            color: #D4AF37; font-family: 'Amiri', serif; letter-spacing: 5px; 
+            margin-top: 20px; font-size: 32px; font-weight: bold;
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.8); 
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .loader-track { 
+            width: 200px; height: 4px; background: rgba(255,255,255,0.2); 
+            margin: 30px auto; border-radius: 10px; overflow: hidden; 
+        }
+        .loader-fill { width: 0%; height: 100%; background: #D4AF37; animation: load 3s forwards; }
+
+        @keyframes load { to { width: 100%; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        /* --- UI COMPONENTS --- */
+        header { 
+            background: var(--gradient-emerald); color: white; padding: 25px 15px; 
+            display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; 
+            border-bottom: 4px solid var(--secondary); border-radius: 0 0 25px 25px;
+        }
+        .container { padding: 20px; animation: fadeInContent 0.5s ease; }
+
+        /* --- RECENT HADIS SCROLL (KOTAK KECIL) --- */
+        .recent-section { margin-bottom: 25px; }
+        .recent-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 12px;
+            padding: 5px 0 15px 0;
+            scrollbar-width: none; /* Firefox */
+        }
+        .recent-scroll::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
+        
+        .recent-item {
+            min-width: 110px;
+            height: 110px;
+            background: var(--card);
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 2px solid var(--secondary);
+            box-shadow: var(--shadow);
+            flex-shrink: 0;
+        }
+        .recent-item b { font-size: 13px; color: var(--primary-dark); display: block; }
+        .recent-item small { font-size: 10px; opacity: 0.6; }
+
+        .card-kitab { 
+            background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 15px; 
+            display: flex; align-items: center; justify-content: space-between; 
+            border-left: 7px solid var(--secondary); box-shadow: var(--shadow); cursor: pointer;
+        }
+        .hadis-box { 
+            background: var(--card); padding: 25px; border-radius: 20px; 
+            margin-bottom: 20px; border-bottom: 5px solid var(--secondary); box-shadow: var(--shadow);
+        }
+        .arab { font-family: 'Amiri', serif; font-size: 26px; direction: rtl; line-height: 2.2; text-align: right; color: var(--primary-dark); }
+        
+        .premium-card { background: var(--gradient-emerald); color: white !important; border: none; text-align: center; }
+        .premium-card .arab, .premium-card p, .premium-card h3 { color: white !important; }
+        .premium-card .btn-wa { background: white !important; color: var(--primary-dark) !important; border: 2px solid var(--secondary); }
+
+        .btn-wa { background: #25D366; color: white; border: none; padding: 12px 18px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; }
+        .btn-gold { width: 100%; padding: 15px; background: var(--gradient-emerald); color: white; border: none; border-radius: 12px; font-weight: bold; margin-top: 10px; cursor: pointer; border-bottom: 3px solid var(--secondary); }
+
+        .bottom-nav { 
+            position: fixed; bottom: 0; width: 100%; height: 85px; background: var(--card); 
+            display: flex; justify-content: space-around; align-items: center; 
+            border-top: 2px solid var(--secondary); z-index: 1000; border-radius: 25px 25px 0 0;
+        }
+        .nav-item { text-align: center; color: #888; cursor: pointer; font-size: 11px; flex: 1; transition: 0.3s; }
+        .nav-item.active { color: var(--primary); font-weight: bold; transform: translateY(-3px); }
+        .nav-item span { font-size: 24px; display: block; margin-bottom: 4px; }
+
+        input, select { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; background: var(--card); color: var(--text); font-size: 16px; }
+    </style>
 </head>
-
 <body>
 
-<div class="app-container">
+<div id="splash-screen">
+    <div class="splash-content">
+        <h2 class="splash-title">KUMPULAN HADIS</h2>
+        <div class="loader-track"><div class="loader-fill"></div></div>
+        <p style="color: white; font-size: 12px; opacity: 0.8; letter-spacing: 2px;">MEMUAT DATA SUCI...</p>
+    </div>
+</div>
 
-<header class="header">
-  <h1>📚 Hadits Lite</h1>
-
-  <div class="nav-actions">
-    <input type="text" id="search" placeholder="Global Search Hadits..." />
-    <button id="bookmarkPageBtn">🔖</button>
-    <button id="themeToggle">🌙</button>
-  </div>
+<header>
+    <div style="width:40px"></div>
+    <div style="flex-grow:1; text-align:center;"><h3 style="margin:0; letter-spacing: 2px;">HADIS DIGITAL</h3></div>
+    <button onclick="document.body.classList.toggle('dark-theme')" style="background:none; border:none; color:white; font-size:22px; cursor:pointer;">🌓</button>
 </header>
 
-<hr>
+<div id="app-content" class="container"></div>
 
-<!-- ADSENSE TOP -->
-<div class="ads-box">
-  <!-- Ganti dengan kode Adsense -->
-  <p>Adsense Top Banner</p>
-</div>
+<nav class="bottom-nav">
+    <div class="nav-item active" onclick="showHome()"><span>📚</span>Kitab</div>
+    <div class="nav-item" onclick="showSearch()"><span>🔍</span>Cari</div>
+    <div class="nav-item" onclick="showHarian()"><span>🌟</span>Harian</div>
+    <div class="nav-item" onclick="showLainnya()"><span>☰</span>Lainnya</div>
+</nav>
 
-<section id="book-list" class="grid"></section>
+<script>
+    window.onload = () => {
+        showHome();
+        setTimeout(() => document.getElementById('splash-screen').classList.add('hidden'), 4000);
+    };
 
-<section id="hadith-view" class="hidden">
-  <button id="backBtn">← Kembali</button>
-  <h2 id="book-title"></h2>
-  <div id="hadith-container"></div>
-</section>
+    const books = [
+        { id: "bukhari", name: "HR. Bukhari", count: "7008 Hadis" },
+        { id: "muslim", name: "HR. Muslim", count: "5362 Hadis" },
+        { id: "tirmidzi", name: "HR. Tirmidzi", count: "3891 Hadis" },
+        { id: "nasai", name: "HR. Nasai", count: "5662 Hadis" },
+        { id: "abu-daud", name: "HR. Abu Daud", count: "4419 Hadis" },
+        { id: "ibnu-majah", name: "HR. Ibnu Majah", count: "4332 Hadis" },
+        { id: "ahmad", name: "HR. Ahmad", count: "26363 Hadis" }
+    ];
 
-<section id="bookmark-page" class="hidden">
-  <button id="closeBookmark">← Kembali</button><a href="index.html"</a>
-  <h2>Bookmark Hadits</h2>
-  <div id="bookmark-container"></div>
-</section>
+    function showHome() {
+        updateNav(0);
+        let h = `
+            <div class="recent-section">
+                <p style="font-size:11px; font-weight:bold; opacity:0.6; letter-spacing:1px; margin-bottom:10px;">RECENT HADIS (GESER)</p>
+                <div class="recent-scroll">
+                    <div class="recent-item"><span>📖</span><b>Bukhari</b><small>Hadis No. 1</small></div>
+                    <div class="recent-item"><span>📖</span><b>Muslim</b><small>Hadis No. 12</small></div>
+                    <div class="recent-item"><span>📖</span><b>Ahmad</b><small>Hadis No. 450</small></div>
+                    <div class="recent-item"><span>📖</span><b>Nasai</b><small>Hadis No. 78</small></div>
+                    <div class="recent-item"><span>📖</span><b>Tirmidzi</b><small>Hadis No. 9</small></div>
+                </div>
+            </div>
+            <p style="font-size:11px; font-weight:bold; opacity:0.6; letter-spacing:1px; margin-bottom:15px;">DAFTAR KITAB PERAWI</p>
+        `;
+        books.forEach(b => {
+            h += `<div class="card-kitab" onclick="loadBook('${b.id}', '${b.name}')">
+                    <div><b>${b.name}</b><br><small style="opacity:0.7;">${b.count}</small></div>
+                    <div style="color:var(--primary); font-size:20px;">➔</div>
+                  </div>`;
+        });
+        document.getElementById('app-content').innerHTML = h;
+    }
 
-<!-- ADSENSE BOTTOM -->
-<div class="ads-box">
-  <p>Adsense Bottom Banner</p>
-</div>
+    async function loadBook(id, name) {
+        const area = document.getElementById('app-content');
+        area.innerHTML = `<div style="text-align:center; padding:50px;">Memuat Kitab ${name}...</div>`;
+        try {
+            const res = await fetch(`https://api.hadits.site/books/${id}?range=1-15`);
+            const data = await res.json();
+            let h = `<button onclick="showHome()" style="background:none; border:none; color:var(--primary); font-weight:bold; padding-bottom:15px; cursor:pointer;">← KEMBALI</button>
+                     <h2 style="margin-top:0;">${name}</h2>`;
+            data.items.forEach(i => {
+                h += `<div class="hadis-box">
+                        <div class="arab">${i.arab}</div>
+                        <p style="font-size:14px; line-height:1.7; border-top:1px dashed #ddd; padding-top:15px; margin-top:15px;">${i.id}</p>
+                        <button class="btn-wa" onclick="shareWA('${i.id}')">📲 Share WhatsApp</button>
+                      </div>`;
+            });
+            area.innerHTML = h;
+            window.scrollTo(0,0);
+        } catch(e) { area.innerHTML = "<div class='hadis-box'>Gagal mengambil data.</div>"; }
+    }
 
+    function showSearch() {
+        updateNav(1);
+        let opts = books.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
+        document.getElementById('app-content').innerHTML = `
+            <div class="hadis-box">
+                <h3 style="text-align:center; margin-top:0;">🔍 CARI NOMOR HADIS</h3>
+                <select id="sKitab">${opts}</select>
+                <input type="number" id="sNo" placeholder="Contoh: 15">
+                <button class="btn-gold" onclick="doSearch()">CARI SEKARANG</button>
+            </div>
+            <div id="resSearch"></div>`;
+    }
 
-<footer class="footer">
-  <h3>Pelajari Sunnah Rasulullah ﷺ</h3>
-  <p>Arab & Indonesia | Ringan & Modern • Dibuat oleh Muhamad Holis</p>
+    async function doSearch() {
+        const k = document.getElementById('sKitab').value;
+        const n = document.getElementById('sNo').value;
+        const res = document.getElementById('resSearch');
+        if(!n) return;
+        res.innerHTML = "<div style='text-align:center;'>Mencari...</div>";
+        try {
+            const r = await fetch(`https://api.hadits.site/books/${k}/${n}`);
+            const d = await r.json();
+            res.innerHTML = `<div class="hadis-box">
+                                <div class="arab">${d.contents.arab}</div>
+                                <p style="font-size:14px; margin-top:15px;">${d.contents.id}</p>
+                                <button class="btn-wa" onclick="shareWA('${d.contents.id}')">📲 Share WA</button>
+                             </div>`;
+        } catch(e) { res.innerHTML = "<div class='hadis-box'>Hadis tidak ditemukan.</div>"; }
+    }
 
-</footer>
+    function showHarian() {
+        updateNav(2);
+        const teks = "Sebaik-baik manusia adalah yang paling bermanfaat bagi orang lain. (HR. Ahmad)";
+        document.getElementById('app-content').innerHTML = `
+            <div class="hadis-box premium-card">
+                <h3 style="color:var(--secondary) !important; letter-spacing:2px;">HADIS HARI INI</h3>
+                <div class="arab" style="font-size:32px;">خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ</div>
+                <p style="font-style:italic; margin: 20px 0; font-size:16px;">"${teks}"</p>
+                <button class="btn-wa" onclick="shareWA('${teks}')">📲 BAGIKAN KE WA</button>
+            </div>`;
+    }
 
-</div>
+    function showLainnya() {
+        updateNav(3);
+        document.getElementById('app-content').innerHTML = `
+            <div class="hadis-box">
+                <h3 style="margin-top:0;">ℹ️ TENTANG APLIKASI</h3>
+                <p style="font-size:13px; line-height:1.7; text-align:justify;">
+                    <b>HadisDigital v1.0</b> dikembangkan oleh <b>mholis1991</b>. 
+                    Aplikasi ini dirancang dengan antarmuka <i>Premium Emerald Gold</i> untuk kenyamanan membaca umat Islam.
+                </p>
+                <div style="background:rgba(255,0,0,0.05); padding:15px; border-radius:12px; border:1px solid #ffdada; margin-top:15px;">
+                    <b style="color:red; font-size:12px;">⚠️ DISCLAIMER ON:</b><br>
+                    <small style="font-size:11px; color:#555;">Data hadis merupakan hasil integrasi API publik. Jika ditemukan perbedaan teks, mohon merujuk ke Kitab Cetak asli.</small>
+                </div>
+            </div>
+            <div class="hadis-box" style="text-align:center;">
+                <h3>🎁 INFAQ JARIYAH</h3>
+                <img src="https://i.ibb.co/JwwDgKbD/images-12.jpg" 
+                     style="width:220px; border:5px solid white; border-radius:15px; box-shadow:var(--shadow);" 
+                     onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=BCA-6095055005-MUHAMMAD-KHOLIS'">
+                <p style="margin-top:15px;"><b>BCA: 6095055005</b><br>a.n Muhammad Kholis</p>
+            </div>`;
+    }
 
-<footer class="footer">
-  <!-- Grid link footer -->
-  <div class="footer-links">
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="bookmark.html">Bookmarks</a>
-  </div>
-
-</footer>
-
-<script src="script.js"></script>
+    function shareWA(t) { window.open(`https://wa.me/?text=${encodeURIComponent(t)}`); }
+    function updateNav(idx) { document.querySelectorAll('.nav-item').forEach((it, i) => it.classList.toggle('active', i === idx)); }
+</script>
 </body>
 </html>
